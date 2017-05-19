@@ -13,13 +13,15 @@ const config = {
 app.use(middleware(config))
 
 app.post('/webhook', (req, res) => {
-  res.json(req.body.events) // req.body will be webhook event object
+  res.send("test");
+  // res.json(req.body.events) // req.body will be webhook event object
 })
 
 app.use((err, req, res, next) => {
   if (err instanceof SignatureValidationFailed) {
     res.status(401).send(err.signature);
     return;
+
   } else if (err instanceof JSONParseError) {
     res.status(400).send(err.raw);
     return;
@@ -27,8 +29,6 @@ app.use((err, req, res, next) => {
   next(err); // will throw default 500
 })
 
-app.use('port', (process.env.PORT || 5000));
-
-app.listen(app.get('port'), function() {
-    console.log("port:", app.get('port'));
+app.listen(process.env.PORT || 3000, function(){
+  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
