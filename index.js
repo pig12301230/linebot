@@ -18,7 +18,15 @@ app.post('/webhook', (req, res) => {
 })
 app.post('/callback', (req, res) => {
   // res.send("test");
-  res.json(req.body.events) // req.body will be webhook event object
+  res.json(req.body.events); // req.body will be webhook event object
+  var events = req.body.events;
+  events.forEach(function(value){
+    console.log(value);
+  })
+  // for(let i=0; i<result.length; i++){
+  //   var data = result[i]['content'];
+  //   console.log(data);
+  // }
 })
 
 app.use((err, req, res, next) => {
