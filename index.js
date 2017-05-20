@@ -1,7 +1,8 @@
-const express = require('express')
-const middleware = require('@line/bot-sdk').middleware
-const JSONParseError = require('@line/bot-sdk/exceptions').JSONParseError
-const SignatureValidationFailed = require('@line/bot-sdk/exceptions').SignatureValidationFailed
+const express = require('express');
+const middleware = require('@line/bot-sdk').middleware;
+const Client = require('@line/bot-sdk').Client;
+const JSONParseError = require('@line/bot-sdk/exceptions').JSONParseError;
+const SignatureValidationFailed = require('@line/bot-sdk/exceptions').SignatureValidationFailed;
 
 const app = express()
 
@@ -9,6 +10,12 @@ const config = {
   channelAccessToken: 'CUqJIjQanQgplRaH2NkTetFWPzEnziMPszdHsVaoossrkWTB54buwY3mr3FKoNGNoJ6z3ivhbN2lJ7GMNGJgk7gEDUfLMrbt9VUvjO4LIa3LsAjNlIlibG8Gs5ocLiDRsJgMeOyWv59kQuZ775ey+wdB04t89/1O/w1cDnyilFU=',
   channelSecret: 'e8d0654b1811c151a8061f65ca988d62'
 }
+
+const client = new Client({
+  channelAccessToken: 'CUqJIjQanQgplRaH2NkTetFWPzEnziMPszdHsVaoossrkWTB54buwY3mr3FKoNGNoJ6z3ivhbN2lJ7GMNGJgk7gEDUfLMrbt9VUvjO4LIa3LsAjNlIlibG8Gs5ocLiDRsJgMeOyWv59kQuZ775ey+wdB04t89/1O/w1cDnyilFU=',
+  channelSecret: 'e8d0654b1811c151a8061f65ca988d62'
+});
+
 
 app.use(middleware(config))
 
@@ -23,6 +30,10 @@ app.post('/callback', (req, res) => {
   events.forEach(function(value){
     console.log(value);
   })
+  client.replyMessage(events.replyToken, {
+    type: 'text',
+    text: 'gogogo',
+  });
   // for(let i=0; i<result.length; i++){
   //   var data = result[i]['content'];
   //   console.log(data);
