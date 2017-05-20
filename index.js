@@ -59,21 +59,38 @@ app.post('/callback', (req, res) => {
         text: '醜',
       });
     }
-    else {
+    else if(value.message.text.match('莊容')!=null){
       client.replyMessage(value.replyToken, {
         type: 'text',
-        text: value.message.text,
+        text: '大陸人',
       });
     }
+    else if(value.message.text.match('家豪')!=null){
+      client.replyMessage(value.replyToken, {
+        type: 'text',
+        text: '媽寶',
+      });
+    }
+    else if(value.message.text.match('BD')!=null){
+      client.replyMessage(value.replyToken, {
+        type: 'text',
+        text: '大陸人',
+      });
+    }
+    else if(value.message.text.match('金門')!=null){
+      client.replyMessage(value.replyToken, {
+        type: 'text',
+        text: '什麼都有',
+      });
+    }
+    else {
+      // client.replyMessage(value.replyToken, {
+      //   type: 'text',
+      //   text: value.message.text,
+      // });
+      console.log(value.message.text);
+    }
   })
-  // client.replyMessage(events.replyToken, {
-  //   type: 'text',
-  //   text: 'gogogo',
-  // });
-  // for(let i=0; i<result.length; i++){
-  //   var data = result[i]['content'];
-  //   console.log(data);
-  // }
 })
 
 app.use((err, req, res, next) => {
