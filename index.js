@@ -28,12 +28,14 @@ app.post('/callback', (req, res) => {
   res.json(req.body.events); // req.body will be webhook event object
   var events = req.body.events;
   events.forEach(function(value){
-    console.log(value);
-  })
-  client.replyMessage(events.replyToken, {
-    type: 'text',
-    text: 'gogogo',
-  });
+    client.replyMessage(value.replyToken, {
+      type: 'text',
+      text: 'gogogo',
+    });  })
+  // client.replyMessage(events.replyToken, {
+  //   type: 'text',
+  //   text: 'gogogo',
+  // });
   // for(let i=0; i<result.length; i++){
   //   var data = result[i]['content'];
   //   console.log(data);
