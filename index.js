@@ -5,7 +5,7 @@ const JSONParseError = require('@line/bot-sdk/exceptions').JSONParseError;
 const SignatureValidationFailed = require('@line/bot-sdk/exceptions').SignatureValidationFailed;
 
 const app = express()
-
+var a = 0;
 const config = {
   channelAccessToken: 'CUqJIjQanQgplRaH2NkTetFWPzEnziMPszdHsVaoossrkWTB54buwY3mr3FKoNGNoJ6z3ivhbN2lJ7GMNGJgk7gEDUfLMrbt9VUvjO4LIa3LsAjNlIlibG8Gs5ocLiDRsJgMeOyWv59kQuZ775ey+wdB04t89/1O/w1cDnyilFU=',
   channelSecret: 'e8d0654b1811c151a8061f65ca988d62'
@@ -25,23 +25,24 @@ app.post('/webhook', (req, res) => {
 })
 app.post('/callback', (req, res) => {
   // res.send("test");
+  a++;
   // res.json(req.body.events); // req.body will be webhook event object
   var events = req.body.events;
   events.forEach(function(value, index, arr){
-    if (index % 2 == 0){
+    if (a % 2 == 0){
     client.replyMessage(value.replyToken, {
       type: 'text',
-      text: '我只會回英祺好帥',
+      text: '乾你屁事',
     });
-  } else if (index % 3 == 0 ){
+  } else if (a % 3 == 0 ){
     client.replyMessage(value.replyToken, {
       type: 'text',
-      text: '英祺好帥',
+      text: '別吵',
     });
   } else {
     client.replyMessage(value.replyToken, {
       type: 'text',
-      text: '英祺帥',
+      text: '晚餐吃什麼',
     });
   }
   })
