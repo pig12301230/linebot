@@ -28,24 +28,13 @@ app.post('/callback', (req, res) => {
   a++;
   // res.json(req.body.events); // req.body will be webhook event object
   var events = req.body.events;
-  console.log(events);
   events.forEach(function(value, index, arr){
-    if (a % 2 == 0){
-    client.replyMessage(value.replyToken, {
-      type: 'text',
-      text: '乾你屁事',
-    });
-  } else if (a % 3 == 0 ){
-    client.replyMessage(value.replyToken, {
-      type: 'text',
-      text: '別吵',
-    });
-  } else {
-    client.replyMessage(value.replyToken, {
-      type: 'text',
-      text: '晚餐吃什麼',
-    });
-  }
+    if(value.message.text.match('在哪')!=null){
+      client.replyMessage(value.replyToken, {
+        type: 'text',
+        text: '乾你屁事',
+      });
+    }
   })
   // client.replyMessage(events.replyToken, {
   //   type: 'text',
