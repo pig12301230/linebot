@@ -27,11 +27,24 @@ app.post('/callback', (req, res) => {
   // res.send("test");
   // res.json(req.body.events); // req.body will be webhook event object
   var events = req.body.events;
-  events.forEach(function(value){
+  events.forEach(function(value, index, arr){
+    if (index % 2 == 0){
     client.replyMessage(value.replyToken, {
       type: 'text',
-      text: 'gogogo',
-    });  })
+      text: '我只會回英祺好帥',
+    });
+  } else if (index % 3 == 0 ){
+    client.replyMessage(value.replyToken, {
+      type: 'text',
+      text: '英祺好帥',
+    });
+  } else {
+    client.replyMessage(value.replyToken, {
+      type: 'text',
+      text: '英祺帥',
+    });
+  }
+  })
   // client.replyMessage(events.replyToken, {
   //   type: 'text',
   //   text: 'gogogo',
