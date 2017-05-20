@@ -16,6 +16,10 @@ app.post('/webhook', (req, res) => {
   res.send("test");
   // res.json(req.body.events) // req.body will be webhook event object
 })
+app.post('/callback', (req, res) => {
+  // res.send("test");
+  res.json(req.body.events) // req.body will be webhook event object
+})
 
 app.use((err, req, res, next) => {
   if (err instanceof SignatureValidationFailed) {
