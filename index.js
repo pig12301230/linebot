@@ -28,6 +28,7 @@ app.post('/callback', (req, res) => {
   a++;
   // res.json(req.body.events); // req.body will be webhook event object
   var events = req.body.events;
+  console.log(events);
   events.forEach(function(value, index, arr){
     if (a % 2 == 0){
     client.replyMessage(value.replyToken, {
