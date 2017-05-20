@@ -29,10 +29,40 @@ app.post('/callback', (req, res) => {
   // res.json(req.body.events); // req.body will be webhook event object
   var events = req.body.events;
   events.forEach(function(value, index, arr){
-    if(value.message.text.match('在哪')!=null){
+    if(value.message.text.match('英祺')!=null){
       client.replyMessage(value.replyToken, {
         type: 'text',
-        text: '乾你屁事',
+        text: '帥',
+      });
+    }
+    else if(value.message.text.match('玉珍')!=null){
+      client.replyMessage(value.replyToken, {
+        type: 'text',
+        text: '胖',
+      });
+    }
+    else if(value.message.text.match('郁婷')!=null){
+      client.replyMessage(value.replyToken, {
+        type: 'text',
+        text: '胖',
+      });
+    }
+    else if(value.message.text.match('英頡')!=null){
+      client.replyMessage(value.replyToken, {
+        type: 'text',
+        text: '醜',
+      });
+    }
+    else if(value.message.text.match('育瑜')!=null){
+      client.replyMessage(value.replyToken, {
+        type: 'text',
+        text: '醜',
+      });
+    }
+    else {
+      client.replyMessage(value.replyToken, {
+        type: 'text',
+        text: value.message.text,
       });
     }
   })
