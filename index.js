@@ -25,7 +25,7 @@ app.post('/webhook', (req, res) => {
 })
 app.post('/callback', (req, res) => {
   // res.send("test");
-  res.json(req.body.events); // req.body will be webhook event object
+  // res.json(req.body.events); // req.body will be webhook event object
   var events = req.body.events;
   events.forEach(function(value){
     client.replyMessage(value.replyToken, {
