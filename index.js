@@ -29,58 +29,10 @@ app.post('/callback', (req, res) => {
   // res.json(req.body.events); // req.body will be webhook event object
   var events = req.body.events;
   events.forEach(function(value, index, arr){
-    if(value.message.text.match('英祺')!=null){
+    if(value.message.text.match('法鬥')!=null){
       client.replyMessage(value.replyToken, {
         type: 'text',
-        text: '帥',
-      });
-    }
-    else if(value.message.text.match('玉珍')!=null){
-      client.replyMessage(value.replyToken, {
-        type: 'text',
-        text: '胖',
-      });
-    }
-    else if(value.message.text.match('郁婷')!=null){
-      client.replyMessage(value.replyToken, {
-        type: 'text',
-        text: '胖',
-      });
-    }
-    else if(value.message.text.match('英頡')!=null){
-      client.replyMessage(value.replyToken, {
-        type: 'text',
-        text: '醜',
-      });
-    }
-    else if(value.message.text.match('育瑜')!=null){
-      client.replyMessage(value.replyToken, {
-        type: 'text',
-        text: '醜',
-      });
-    }
-    else if(value.message.text.match('莊容')!=null){
-      client.replyMessage(value.replyToken, {
-        type: 'text',
-        text: '大陸人',
-      });
-    }
-    else if(value.message.text.match('家豪')!=null){
-      client.replyMessage(value.replyToken, {
-        type: 'text',
-        text: '媽寶',
-      });
-    }
-    else if(value.message.text.match('BD')!=null){
-      client.replyMessage(value.replyToken, {
-        type: 'text',
-        text: '大陸人',
-      });
-    }
-    else if(value.message.text.match('金門')!=null){
-      client.replyMessage(value.replyToken, {
-        type: 'text',
-        text: '什麼都有',
+        text: '才華洋溢的有為青年',
       });
     }
     else {
