@@ -4,6 +4,10 @@ function FormatChecker() {
     if(value.match('法鬥找人 ')!= null) {
         const res = value.replace('法鬥找人 ', '');
         return ['find', res];
+    } else if(value.match('法鬥小幫手')!= null) {
+        return ['help', ''];
+    } else {
+        return ['unknown', ''];
     }
   };
 }

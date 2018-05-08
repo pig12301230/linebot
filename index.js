@@ -37,24 +37,30 @@ app.post('/webhook', (req, res) => {
 app.post('/callback', (req, res) => {
 
   var events = req.body.events;
+  if(!events) { return; }
   events.forEach(function(value, index, arr){
 
     //reply
     const check = formatChecker.checkFormat(value.message.text); 
     switch(check[0]){
       case 'find':
-        finder.find(check[1]).then((line) => {
-          client.replyMessage(value.replyToken, {
+        return finder.find(check[1]).then((line) => {
+          return client.replyMessage(value.replyToken, {
             type: 'text',
             text: line,
           });
         });
-        
-      case 'help': break;
-      default: break;
+        break;
+      case 'help':
+        return client.replyMessage(value.replyToken, {
+          type: 'text',
+          text: '法鬥小幫手   提供以下功能：\n法鬥找人 遊戲ＩＤ,\n法鬥遺跡 (還未動工),\n法鬥爬塔 (還未動工)\n'
+        });
+        break;
+      default: return; break;
     }
     if(value.message.text.match('老蕭支援')!= null) {
-      client.replyMessage(value.replyToken, {
+      return client.replyMessage(value.replyToken, {
         type: 'image',
         originalContentUrl: 'https://firebasestorage.googleapis.com/v0/b/mcdonalds-84822.appspot.com/o/S__38461494.jpg?alt=media&token=aaca0c42-cb1d-4b41-96b7-6548c1b594aa',
         previewImageUrl: 'https://firebasestorage.googleapis.com/v0/b/mcdonalds-84822.appspot.com/o/S__38461494.jpg?alt=media&token=aaca0c42-cb1d-4b41-96b7-6548c1b594aa'
