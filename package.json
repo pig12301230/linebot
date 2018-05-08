@@ -10,8 +10,11 @@
   "license": "ISC",
   "dependencies": {
     "@line/bot-sdk": "^1.0.0",
+    "chalk": "^2.4.1",
     "express": "^4.15.3",
+    "figures": "^2.0.0",
     "firebase": "^4.13.1",
-    "firebase-admin": "^5.12.0"
+    "firebase-admin": "^5.12.0",
+    "firebase-functions": "^1.0.2"
   }
 }

@@ -1,5 +1,3 @@
-const admin = require('firebase-admin');
-
 function FormatChecker() {
   this.checkFormat = function(value) {
     

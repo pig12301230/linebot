@@ -4,7 +4,11 @@ const Client = require('@line/bot-sdk').Client;
 const JSONParseError = require('@line/bot-sdk/exceptions').JSONParseError;
 const SignatureValidationFailed = require('@line/bot-sdk/exceptions').SignatureValidationFailed;
 const admin = require('firebase-admin');
+const serviceAccount = require("./credential/linebot-599ec-firebase-adminsdk-o8igq-7878dcce17.json");
+
 const formatChecker = require('./Manager/CheckFormat.js')();
+const finder = require('./Manager/Finder.js')(admin);
+
 
 const app = express()
 
@@ -21,6 +25,11 @@ const client = new Client({
 
 app.use(middleware(config))
 
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://linebot-599ec.firebaseio.com"
+});
+
 app.post('/webhook', (req, res) => {
   res.send("test");
   // res.json(req.body.events) // req.body will be webhook event object
@@ -34,21 +43,16 @@ app.post('/callback', (req, res) => {
     const check = formatChecker.checkFormat(value.message.text); 
     switch(check[0]){
       case 'find':
-        console.log('find');
-        // client.replyMessage(value.replyToken, {
-        //   type: 'text',
-        //   text: check[1],
-        // });
-      case '': break;
+        finder.find(check[1]).then((line) => {
+          client.replyMessage(value.replyToken, {
+            type: 'text',
+            text: line,
+          });
+        });
+        
+      case 'help': break;
       default: break;
     }
-
-    // if(value.message.text.match('法')!=null && value.message.text.match('鬥')!= null ){
-    //   client.replyMessage(value.replyToken, {
-    //     type: 'text',
-    //     text: '法鬥 是個才華洋溢有為的青年',
-    //   });
-    // }
     if(value.message.text.match('老蕭支援')!= null) {
       client.replyMessage(value.replyToken, {
         type: 'image',
