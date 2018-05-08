@@ -3,9 +3,11 @@ const middleware = require('@line/bot-sdk').middleware;
 const Client = require('@line/bot-sdk').Client;
 const JSONParseError = require('@line/bot-sdk/exceptions').JSONParseError;
 const SignatureValidationFailed = require('@line/bot-sdk/exceptions').SignatureValidationFailed;
+const admin = require('firebase-admin');
+const formatChecker = require('./Manager/CheckFormat.js')();
 
 const app = express()
-var a = 0;
+
 const config = {
   channelAccessToken: 'CUqJIjQanQgplRaH2NkTetFWPzEnziMPszdHsVaoossrkWTB54buwY3mr3FKoNGNoJ6z3ivhbN2lJ7GMNGJgk7gEDUfLMrbt9VUvjO4LIa3LsAjNlIlibG8Gs5ocLiDRsJgMeOyWv59kQuZ775ey+wdB04t89/1O/w1cDnyilFU=',
   channelSecret: 'e8d0654b1811c151a8061f65ca988d62'
@@ -24,11 +26,23 @@ app.post('/webhook', (req, res) => {
   // res.json(req.body.events) // req.body will be webhook event object
 })
 app.post('/callback', (req, res) => {
-  // res.send("test");
-  a++;
-  // res.json(req.body.events); // req.body will be webhook event object
+
   var events = req.body.events;
   events.forEach(function(value, index, arr){
+
+    //reply
+    const check = formatChecker.checkFormat(value.message.text); 
+    switch(check[0]){
+      case 'find':
+        console.log('find');
+        // client.replyMessage(value.replyToken, {
+        //   type: 'text',
+        //   text: check[1],
+        // });
+      case '': break;
+      default: break;
+    }
+
     // if(value.message.text.match('法')!=null && value.message.text.match('鬥')!= null ){
     //   client.replyMessage(value.replyToken, {
     //     type: 'text',
@@ -47,7 +61,6 @@ app.post('/callback', (req, res) => {
       //   type: 'text',
       //   text: value.message.text,
       // });
-      console.log(value.message.text);
     // }
   })
 })
