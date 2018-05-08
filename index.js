@@ -29,19 +29,26 @@ app.post('/callback', (req, res) => {
   // res.json(req.body.events); // req.body will be webhook event object
   var events = req.body.events;
   events.forEach(function(value, index, arr){
-    if(value.message.text.match('法鬥')!=null){
+    // if(value.message.text.match('法')!=null && value.message.text.match('鬥')!= null ){
+    //   client.replyMessage(value.replyToken, {
+    //     type: 'text',
+    //     text: '法鬥 是個才華洋溢有為的青年',
+    //   });
+    // }
+    if(value.message.text.match('老蕭支援')!= null) {
       client.replyMessage(value.replyToken, {
-        type: 'text',
-        text: '才華洋溢的有為青年',
-      });
+        type: 'image',
+        originalContentUrl: 'https://firebasestorage.googleapis.com/v0/b/mcdonalds-84822.appspot.com/o/S__38461494.jpg?alt=media&token=aaca0c42-cb1d-4b41-96b7-6548c1b594aa',
+        previewImageUrl: 'https://firebasestorage.googleapis.com/v0/b/mcdonalds-84822.appspot.com/o/S__38461494.jpg?alt=media&token=aaca0c42-cb1d-4b41-96b7-6548c1b594aa'
+       });
     }
-    else {
+    // else {
       // client.replyMessage(value.replyToken, {
       //   type: 'text',
       //   text: value.message.text,
       // });
       console.log(value.message.text);
-    }
+    // }
   })
 })
 
