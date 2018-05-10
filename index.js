@@ -8,6 +8,7 @@ const serviceAccount = require("./credential/linebot-599ec-firebase-adminsdk-o8i
 
 const formatChecker = require('./Manager/CheckFormat.js')();
 const finder = require('./Manager/Finder.js')(admin);
+const card = require('./Manager/Card.js')(admin);
 
 
 const app = express()
@@ -51,10 +52,18 @@ app.post('/callback', (req, res) => {
           });
         });
         break;
+      case 'card':
+        return card.find(check[1]).then((card) => {
+          return client.replyMessage(value.replyToken, {
+            type: 'text',
+            text: card,
+          });
+        });
+        break;
       case 'help':
         return client.replyMessage(value.replyToken, {
           type: 'text',
-          text: '法鬥小幫手   提供以下功能：\n法鬥找人 遊戲ＩＤ,\n法鬥遺跡 (還未動工),\n法鬥爬塔 (還未動工)\n'
+          text: '法鬥小幫手   提供以下功能：\n法鬥找人 遊戲ＩＤ,\n法鬥卡片 卡片名稱,\n法鬥卡片 atk,\n法鬥卡片 matk,\n法鬥卡片 hp,\n法鬥遺跡 (還未動工),\n法鬥爬塔 (還未動工)\n'
         });
         break;
       default: return; break;
