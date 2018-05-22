@@ -7,6 +7,7 @@ const admin = require('firebase-admin');
 const serviceAccount = require("./credential/linebot-599ec-firebase-adminsdk-o8igq-7878dcce17.json");
 
 const formatChecker = require('./Manager/CheckFormat.js')();
+const eg = require('./Crawler/EG.js')();
 const finder = require('./Manager/Finder.js')(admin);
 const card = require('./Manager/Card.js')(admin);
 
@@ -52,6 +53,20 @@ app.post('/callback', (req, res) => {
           });
         });
         break;
+      case 'eg':
+        return eg.getEG(check[1]).then((imgUrl) => {
+          return client.replyMessage(value.replyToken, {
+            type: 'image',
+            originalContentUrl: imgUrl,
+            previewImageUrl: imgUrl
+           });
+        }).catch(()=> {
+          return client.replyMessage(value.replyToken, {
+            type: 'text',
+            text: '打得到你打給我看',
+          });
+        });
+        break;
       case 'card':
         return card.find(check[1]).then((card) => {
           return client.replyMessage(value.replyToken, {
@@ -63,7 +78,7 @@ app.post('/callback', (req, res) => {
       case 'help':
         return client.replyMessage(value.replyToken, {
           type: 'text',
-          text: '法鬥小幫手   提供以下功能：\n法鬥找人 遊戲ＩＤ,\n法鬥卡片 卡片名稱,\n法鬥卡片 atk,\n法鬥卡片 matk,\n法鬥卡片 hp,\n法鬥遺跡 (還未動工),\n法鬥爬塔 (還未動工)\n'
+          text: '法鬥小幫手   提供以下功能：\n法鬥找人 遊戲ＩＤ,\n法鬥遺跡 40/60/80,\n法鬥卡片 卡片名稱,\n法鬥卡片 atk,\n法鬥卡片 matk,\n法鬥卡片 hp,\n法鬥爬塔 (還未動工)\n'
         });
         break;
       default: return; break;
