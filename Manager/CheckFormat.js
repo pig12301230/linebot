@@ -12,6 +12,9 @@ function FormatChecker() {
     } else if (value.match('法鬥遺跡 ')!= null) {
         const res = value.replace('法鬥遺跡 ', '');
         return ['eg', res];
+    } else if (value.match('法鬥爬塔 ')!= null || value.match('法鬥爬塔')!= null) {
+        const res = value.replace('法鬥爬塔 ', '');
+        return ['tower', res];
     } else {
         return ['unknown', ''];
     }

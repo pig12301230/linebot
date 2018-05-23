@@ -7,6 +7,7 @@ const admin = require('firebase-admin');
 const serviceAccount = require("./credential/linebot-599ec-firebase-adminsdk-o8igq-7878dcce17.json");
 
 const formatChecker = require('./Manager/CheckFormat.js')();
+const tower = require('./Manager/Tower.js')();
 const eg = require('./Crawler/EG.js')();
 const finder = require('./Manager/Finder.js')(admin);
 const card = require('./Manager/Card.js')(admin);
@@ -75,10 +76,18 @@ app.post('/callback', (req, res) => {
           });
         });
         break;
+      case 'tower':
+        return tower.getData(check[1]).then((url) => {
+          return client.replyMessage(value.replyToken, {
+            type: 'text',
+            text: url,
+          });
+        });
+        break;
       case 'help':
         return client.replyMessage(value.replyToken, {
           type: 'text',
-          text: '法鬥小幫手   提供以下功能：\n法鬥找人 遊戲ＩＤ,\n法鬥遺跡 40/60/80,\n法鬥卡片 卡片名稱,\n法鬥卡片 atk,\n法鬥卡片 matk,\n法鬥卡片 hp,\n法鬥爬塔 (還未動工)\n'
+          text: '法鬥小幫手   提供以下功能：\n法鬥找人 遊戲ＩＤ,\n法鬥遺跡 40/60/80,\n法鬥卡片 卡片名稱,\n法鬥卡片 atk/matk/hp/int,\n法鬥爬塔 mvp/mini\n'
         });
         break;
       default: return; break;
