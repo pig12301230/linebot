@@ -90,8 +90,15 @@ app.post('/callback', (req, res) => {
           text: '法鬥小幫手   提供以下功能：\n法鬥找人 遊戲ＩＤ,\n法鬥遺跡 40/60/80,\n法鬥卡片 卡片名稱,\n法鬥卡片 atk/matk/hp/int,\n法鬥爬塔 mvp/mini\n'
         });
         break;
-      default: return; break;
+      default: break;
     }
+    // if(value.message.text.match('會長是誰')!= null) {
+    //   console.log('who');
+    //   return client.replyMessage(value.replyToken, {
+    //     type: 'text',
+    //     text: '法鬥控'
+    //   });
+    // }
     if(value.message.text.match('老蕭支援')!= null) {
       return client.replyMessage(value.replyToken, {
         type: 'image',
