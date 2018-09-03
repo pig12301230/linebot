@@ -4,7 +4,7 @@ const url = 'https://ro.fws.tw/db/guild/raid';
 
 function EG() {
     this.getEG = function(value) {
-        if (!(value == '40' || value == '60' || value == '80')) { return Promise.reject(); }
+        if (!(value == '40' || value == '60' || value == '80' || value == '100')) { return Promise.reject(); }
         return request(url + '/' + value).then((result) => {
             const $ = cheerio.load(result);
             var src = $('img').attr("src");
